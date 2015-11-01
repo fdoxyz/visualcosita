@@ -12,6 +12,10 @@
     "static",
     "blog"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fdoxyz/visualcosita.git"
+  },
   "author": "Fernando Valverde",
   "license": "ISC",
   "devDependencies": {

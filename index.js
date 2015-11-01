@@ -7,8 +7,7 @@ var Metalsmith = require('metalsmith'),
     branch = require('metalsmith-branch'),
     serve = require('metalsmith-serve'),
     watch = require('metalsmith-watch'),
-    moment = require('moment'),
-    fs = require('fs');
+    moment = require('moment');
 
 if (process.env.NODE_ENV === 'development') {
     //Development pipe
