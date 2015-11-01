@@ -1,17 +1,21 @@
 doctype html
-html(lang="en")
+- var language = (lang !== undefined) ? lang : "en"
+html(lang="#{language}")
 	head
-		title= title
+		title= (title !== "Visualcosita") ? title + " | " + site.title : site.title
 
 		meta(charset='utf-8')
 		meta(name='viewport', content='width=device-width', initial-scale='1.0')
 		meta(http-equiv='x-ua-compatible', content='ie=edge')
 		
+		link(rel='stylesheet', type='text/css', href='/css/normalize.css')
+		link(rel='stylesheet', type='text/css', href='/css/skeleton.css')
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
 		link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Raleway')
+		link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Ubuntu+Mono')
 
 	body
 		include ./nav.jade
-		#content
+		#content.container
 			block content
 		include ./footer.jade

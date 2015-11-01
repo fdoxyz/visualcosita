@@ -1,9 +1,7 @@
 ---
 title: second post
-date: 2015-05-05
+date: 2015-11-15
 layout: post.jade
 ---
 
-### OK, debugging now
-
-A blog post, that simple.
+A second blog post, that simple.

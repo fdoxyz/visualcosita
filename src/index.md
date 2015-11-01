@@ -1,4 +1,4 @@
 ---
-title: visualcosita!!
+title: Visualcosita
 layout: blog.jade
 ---

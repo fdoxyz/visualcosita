@@ -1,8 +1,12 @@
 extends ./partials/layout
 
 block content
-    h2 #{title}
-    article
-        ul
-            - for (var i = 0; i < collections.posts.length; i++)
-                li!= collections.posts[i].contents
+    ul.article-list
+        - for (var i = 0; i < collections.posts.length; i++)
+            li
+                div.article
+                    h2.article-title
+                        - var link = "/" + collections.posts[i].path
+                        a(href="#{link}") #{collections.posts[i].title}
+                    div.article-date #{moment(collections.posts[i].date).format("MMMM Do YYYY")}
+                    div.article-teaser!= collections.posts[i].contents
