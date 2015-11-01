@@ -20,11 +20,13 @@ if (process.env.NODE_ENV === 'development') {
                 debug: true
             }
         })
+        .destination('./build')
         .use(markdown())
+        .use(excerpts())
         .use(collections({
           posts: {
             pattern: 'content/post/**.html',
-            sortBy: 'publishDate',
+            sortBy: 'date',
             reverse: true
           }
         }))
@@ -45,7 +47,6 @@ if (process.env.NODE_ENV === 'development') {
           pattern: '**/*',
           livereload: true
         }))
-        .destination('./build')
         .build(function(err) {
             if (err) {
                 console.log(err);
@@ -62,11 +63,13 @@ if (process.env.NODE_ENV === 'development') {
                 debug: false
             }
         })
+        .destination('./build')
         .use(markdown())
+        .use(excerpts())
         .use(collections({
           posts: {
             pattern: 'content/post/**.html',
-            sortBy: 'publishDate',
+            sortBy: 'date',
             reverse: true
           }
         }))
@@ -79,7 +82,6 @@ if (process.env.NODE_ENV === 'development') {
             engine: 'jade',
             moment: moment
         }))
-        .destination('./build')
         .build(function(err) {
             if (err) {
                 console.log(err);

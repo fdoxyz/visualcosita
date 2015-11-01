@@ -2,7 +2,6 @@
 title: sup world
 date: 2015-11-01
 layout: post.jade
-lang: es
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque risus ut justo interdum, dictum tristique lacus eleifend. Mauris vulputate tempor leo, ut convallis justo rutrum ac. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut sit amet ante quam. Donec ut velit id tortor fermentum auctor. Suspendisse sapien odio, mollis quis purus ut, fringilla consequat tellus. Nunc quis nunc et lacus dignissim accumsan tempor in est. Pellentesque condimentum nisi at fermentum sodales.

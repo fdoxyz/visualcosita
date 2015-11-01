@@ -2,11 +2,11 @@ extends ./partials/layout
 
 block content
     ul.article-list
-        - for (var i = 0; i < collections.posts.length; i++)
+        each post in collections.posts
             li
                 div.article
                     h2.article-title
-                        - var link = "/" + collections.posts[i].path
-                        a(href="#{link}") #{collections.posts[i].title}
-                    div.article-date #{moment(collections.posts[i].date).format("MMMM Do YYYY")}
-                    div.article-teaser!= collections.posts[i].contents
+                        - var link = "/" + post.path
+                        a(href="#{link}") #{post.title}
+                    div.article-date #{moment(post.date).format("MMMM Do YYYY")}
+                    div.article-teaser!= post.excerpt
