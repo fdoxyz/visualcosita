@@ -9,8 +9,11 @@ var Metalsmith = require('metalsmith'),
     watch = require('metalsmith-watch'),
     moment = require('moment');
 
-if (process.env.NODE_ENV === 'development') {
+var deploy = (process.argv.length >= 2) && (process.argv[2] === "deploy");
+
+if (!deploy) {
     //Development pipe
+    console.log("You better work bitch...");
     Metalsmith(__dirname)
         .metadata({
             site: {
@@ -50,10 +53,11 @@ if (process.env.NODE_ENV === 'development') {
             if (err) {
                 console.log(err);
             }
-            console.log('Finished build succesfully');
+            console.log("If you're tired of starting over, stop giving up!");
         });
 } else {
     //Production pipe
+    console.log("Building site, keep your fingers crossed...");
     Metalsmith(__dirname)
         .metadata({
             site: {
@@ -85,6 +89,6 @@ if (process.env.NODE_ENV === 'development') {
             if (err) {
                 console.log(err);
             }
-            console.log('Finished build succesfully');
+            console.log("Everything went better than expected!");
         });
 }
