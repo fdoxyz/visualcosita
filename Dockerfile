@@ -20,6 +20,8 @@ RUN mkdir -p /opt/app && \
     cp -a /tmp/node_modules /opt/visualcosita/
 
 ADD . /opt/app
-RUN cd /opt/app &&\
+RUN cd /opt/app && \
     node index.js deploy && \
-    mv build /usr/share/nginx/html
+    mv build/* /usr/share/nginx/html && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /opt/visualcosita
