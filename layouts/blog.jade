@@ -1,12 +1,24 @@
 extends ./partials/layout
+- var language = (lang !== undefined) ? lang : "en"
+- var localizedPosts = (language === "en") ?  collections.posts : collections.spanishPosts
 
 block content
     ul.article-list
-        each post in collections.posts
-            li
-                div.article
-                    h2.article-title
-                        - var link = "/" + post.path
-                        a(href="#{link}") #{post.title}
-                    div.article-date #{moment(post.date).format("MMMM Do YYYY")}
-                    div.article-teaser!= post.excerpt
+        if language === "en"
+            each post in collections.posts
+                li
+                    div.article
+                        h2.article-title
+                            - var link = "/" + post.path
+                            a(href="#{link}") #{post.title}
+                        div.article-date #{moment(post.date).format("MMMM Do YYYY")}
+                        div.article-teaser!= post.excerpt
+        else
+            each post in collections.spanishPosts
+                li
+                    div.article
+                        h2.article-title
+                            - var link = "/" + post.path
+                            a(href="#{link}") #{post.title}
+                        div.article-date #{moment(post.date).format("MMMM Do YYYY")}
+                        div.article-teaser!= post.excerpt

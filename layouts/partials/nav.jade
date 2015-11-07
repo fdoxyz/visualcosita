@@ -10,3 +10,12 @@ nav
                 li.navbar-item
                     a(href="https://github.com/fdoxyz" class="nav-link")
                         img(src="/img/github.png")
+                li.navbar-item
+                    a(href="/rss.xml" class="nav-link")
+                        img(src="/img/rss.png")
+                li.navbar-item 
+                    - var language = (lang !== undefined) ? lang : "en"
+                    if language === "en"
+                        a(href="/es" class="nav-link") ES
+                    else
+                        a(href="/" class="nav-link") EN

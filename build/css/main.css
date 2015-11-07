@@ -1,11 +1,14 @@
 /* Main color: c1ee5f / #D0F287 */
 
 nav {
-    height: 40px;
-    padding: 7px 25px;
+    padding: 5px 25px;
     background-color: #c1ee5f; /* rgba(193, 238, 95, 0.75); */
     box-shadow: 0 2px 5px #888888;
     margin-bottom: 30px;
+}
+
+ul.navbar {
+    margin: 0;
 }
 
 ul.navbar-container {
@@ -14,42 +17,24 @@ ul.navbar-container {
 }
 
 #navbar-title {
-    font-size: 25px;
+    font-size: 20px;
     text-shadow: 1px 1px 1px #999;
-    font-family: 'Ubuntu Mono', serif;
 }
 
 .nav-link, .nav-link:hover {
+    font-family: 'Ubuntu Mono', serif;
     color: #fff;
     text-decoration: none;
-    height: inherit;
+    font-size: 18px;
 }
 
 li.navbar-item {
+    margin: 0;
     display: inline;
-    height: 45px;
 }
 
 .navbar-container > li.navbar-item {
     margin-left: 15px;
-}
-
-@media (min-width: 750px) {
-    nav {
-        height: 50px;
-    }
-
-    ul.navbar-container {
-        margin: 12px 0;
-    }
-
-    .navbar-container > li.navbar-item {
-        margin-left: 25px;
-    }
-
-    #navbar-title {
-        font-size: 35px;
-    }
 }
 
 a {
@@ -67,14 +52,14 @@ ul.article-list {
 }
 
 .article-title {
-    font-size: 55px;
+    font-size: 42px;
     letter-spacing: 1px;
     margin: 0;
 }
 
 .article-date {
     font-family: 'Ubuntu Mono', serif;
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: 1px;
     color: #888;
     margin-bottom: 40px;
@@ -83,4 +68,36 @@ ul.article-list {
 p {
     font-size: 18px;
     letter-spacing: 1px;
+}
+
+@media (min-width: 400px) {
+    #navbar-title {
+        font-size: 30px;
+    }
+}
+
+@media (min-width: 750px) {
+    nav {
+        height: 50px;
+    }
+
+    ul.navbar-container {
+        margin: 15px 0;
+    }
+
+    .navbar-container > li.navbar-item {
+        margin-left: 25px;
+    }
+
+    .article-title {
+        font-size: 55px;
+    }
+
+    .article-date {
+        font-size: 18px;
+    }
+
+    #navbar-title {
+        font-size: 35px;
+    }
 }

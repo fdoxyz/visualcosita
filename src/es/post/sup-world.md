@@ -2,7 +2,7 @@
 title: Sup world
 date: 2015-11-01
 layout: post.jade
-lang: en
+lang: es
 ---
 
 So, this will be yet another techie blog. Plain old me, writing about my journey to the depths of hell (Full Stack Development - a.k.a. obsesive curiosity disorder with sparkles of masochism). Before we start I want to state that english is not my primary/native langua... Oh god why, not that cliché disclaimer again. Nevermind, I had planned to build this website in both English and Spanish from day 1, so the joke's on you! Not that anything I just wrote back there made any sense, but now that you've got an idea of my *definitely not clinically insane* line of thought and *super funny sense of humour*, let's dive into what we came for.
