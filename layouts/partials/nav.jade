@@ -14,8 +14,9 @@ nav
                     a(href="/rss.xml" class="nav-link")
                         img(src="/img/rss.png")
                 li.navbar-item 
-                    - var language = (lang !== undefined) ? lang : "en"
-                    if language === "en"
-                        a(href="/es" class="nav-link") ES
-                    else
-                        a(href="/" class="nav-link") EN
+                    - var langString = ((lang !== undefined) && (lang === "en")) ? "ES" : "EN"
+                    - var translatedUrl = ((lang !== undefined)  && (lang === "en")) ? translationPath.es : translationPath.en
+                    a(href="#{translatedUrl}" class="nav-link" id="langToggler") #{langString}
+                    
+                    
+                    

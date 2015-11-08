@@ -21,4 +21,5 @@ RUN cd /tmp && \
     node index.js deploy && \
     mv build/* /usr/share/nginx/html && \
     apt-get clean && \
+    npm uninstall npm -g && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
