@@ -1,9 +1,13 @@
 /* Main color: c1ee5f / #D0F287 */
 
+body {
+    background-color: #FEFEFE;
+}
+
 nav {
     padding: 5px 25px;
     background-color: #c1ee5f; /* rgba(193, 238, 95, 0.75); */
-    box-shadow: 0 2px 5px #888888;
+    box-shadow: 0 2px 5px #888;
     margin-bottom: 30px;
 }
 
@@ -19,12 +23,12 @@ ul.navbar-container {
 
 #navbar-title {
     font-size: 20px;
-    text-shadow: 1px 1px 1px #999;
+    text-shadow: 3px 3px 2px #888
 }
 
 .nav-link, .nav-link:hover {
     font-family: 'Ubuntu Mono', serif;
-    color: #fff;
+    color: #FEFEFE;
     text-decoration: none;
     font-size: 18px;
 }
@@ -43,14 +47,19 @@ li.navbar-item {
     bottom: 3px;
 }
 
+strong {
+    font-weight: 600;
+}
+
 a {
-    color: #c1ee5f;
+    color: #AFE24A;
+    /*font-weight: 600;*/
     text-decoration: none;
 }
 
 a:hover {
-    color: #9dd72a;
-    text-decoration: none;
+    color: #AFE24A;
+    /*text-decoration: underline;*/
 }
 
 ul.article-list {
