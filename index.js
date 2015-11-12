@@ -48,9 +48,7 @@ var metalsmith = Metalsmith(__dirname)
             pattern: 'es/post/:title'
         }))
     )
-    .use(polyglot({
-        baseLang: "en"
-    }))
+    .use(polyglot())
     .use(feed({
         collection: 'posts'
     }))

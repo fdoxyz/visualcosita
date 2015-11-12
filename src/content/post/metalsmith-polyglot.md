@@ -5,13 +5,13 @@ layout: post.jade
 lang: en
 ---
 
-This is a simple plugin I made to help me translate a static website. My short description of Metalsmith is *"a gulp-like pipe solution for processing/generating your files"*, check out [their website](http://www.metalsmith.io/) for a more accurate description. Also in my [previous post](/post/sup-world) I referred to Metalsmith and a couple of beginner tutorial suggestions for first-timers. After `npm install metalsmith-polyglot --save` we can dive right into business.
+This is a simple plugin I made to link the translated content of my static website generated with Metalsmith. For newcomers, my short description of Metalsmith is *"a gulp-like pipe solution for processing/generating your files"*, though you might want to check out [their website](http://www.metalsmith.io/) for a more accurate description. In my [previous post](/post/sup-world) I talked about why I chose to use Metalsmith and a couple of beginner tutorial suggestions. After `npm install metalsmith-polyglot` we can dive right into business.
 
 #### The project structure
 
-For translating a whole blog, the structure to organize the content was the first thing to settle before starting to write anything else. With a homepage and a bunch of posts the general structure will be easy, url paths like `http://visualcosita.xyz/post/title` and for translations just add the language code prefix `http://visualcosita.xyz/es/post/title`. Easy right? Here's my project structure:
+For translating a whole blog, the structure to organize the content was the first thing to settle before starting to write anything else. With a homepage and a bunch of posts the general structure will be easy, url paths like `visualcosita.xyz/post/title` and for translations just add the language code prefix `visualcosita.xyz/es/post/title`. Easy right? Here's my project structure:
 
-```js
+```
 src/
     content/
         index.md
@@ -66,8 +66,7 @@ Eveything works, life is awesome! Now I have both versions, the base language (e
 
 Parse the files, add some metadata to Metalsmith's pipe and also take advantage of the file structure in templating time to make a clean redirect. Stick `polyglot` right before the template engine, which might be handlebars or something else, in my case Jade.
 
-```js
-...
+```
 .use(branch('es/post/**.html')
     .use(permalinks({
         pattern: 'es/post/:title'
@@ -78,12 +77,11 @@ Parse the files, add some metadata to Metalsmith's pipe and also take advantage 
     engine: 'jade',
     moment: moment
 }))
-...
 ```
 
 What will this help me with? A new variable in the metadata of each file with the following structure:
 
-```js
+```
 "post/sup-world.html": {
     ...
     translationPath : {
@@ -96,13 +94,10 @@ What will this help me with? A new variable in the metadata of each file with th
 
 So what's so useful about it? I can know beforehand -during template rendering- the path (if there is one) of the translation for a file. The template navigation for this website looks like this:
 
-```jade
-//If anyone has a suggestion to fix this bothersome horizontal
-//scroll issue, plz comment below, my css is not that solid yet
-
+```
 li.navbar-item
-    - var langString = ((lang !== undefined) && (lang === "en")) ? "ES" : "EN"
-    - var translatedUrl = ((lang !== undefined)  && (lang === "en")) ? translationPath.es : translationPath.en
+    - var langString = (lang === "en") ? "ES" : "EN"
+    - var translatedUrl = (lang === "en") ? translationPath.es : translationPath.en
     a(href="#{translatedUrl}" class="nav-link" id="langToggler") #{langString}
 ```
 

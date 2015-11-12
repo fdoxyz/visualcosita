@@ -17,4 +17,4 @@ What I enjoyed most of this site generator was the gulp-like pipe strategy for c
 
 I'm an iOS Developer, but curious about lots of different technologies. I also enjoy tearing everything apart and putting it back together to learn how it works. Expect posts about Swift, Objective-C, JavaScript, Docker, and anything else that gets in my way. Hope this might be of any help for someone, somewhere, somehow... That would make it totally worth it.
 
-One small thing I'd like to point out, now that I've finally started writing something other than code, now I see its not that easy to translate as I had planned (specially jokes), let's just hope the writing get's better with time... I promise I'll keep puns to where they are absolutely necessary.
+One small thing I'd like to point out, now that I've finally started writing something other than code, now I see its not that easy to translate as I had planned (specially jokes), let's just hope the writing get's better with time... I promise I'll keep puns to when they are absolutely necessary.
