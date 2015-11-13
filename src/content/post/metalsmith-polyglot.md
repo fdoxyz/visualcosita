@@ -5,7 +5,7 @@ layout: post.jade
 lang: en
 ---
 
-This is a simple plugin I made to link the translated content of my static website generated with Metalsmith. For newcomers, my short description of Metalsmith is *"a gulp-like pipe solution for processing/generating your files"*, though you might want to check out [their website](http://www.metalsmith.io/) for a more accurate description. In my [previous post](/post/sup-world) I talked about why I chose to use Metalsmith and a couple of beginner tutorial suggestions. After `npm install metalsmith-polyglot` we can dive right into business.
+This is a simple plugin I made to link the translated content of my static website generated with Metalsmith. For newcomers, my short description of Metalsmith is *"a gulp-like pipe solution for processing/generating your files"*, though you might want to check out [their website](http://www.metalsmith.io/) for a more accurate description. In my [previous post](/post/sup-world) I talked about why I chose to use Metalsmith and a couple of getting-started tutorial suggestions. After `npm install metalsmith-polyglot` we can dive right into business.
 
 #### The project structure
 

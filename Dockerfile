@@ -10,10 +10,11 @@ RUN apt-get update && apt-get install -y curl && \
     apt-get install -y nodejs
 
 # Copy dependencies & install them
-# This layer will cache dependencies unless they change
+# This layer will cache dependencies while they don't change
 ADD package.json /tmp/package.json
 RUN cd /tmp && \
     npm install
+EXPOSE 80
 
 # Source->Deploy->Cleanup
 ADD . /tmp
