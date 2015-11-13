@@ -20,7 +20,7 @@ var metalsmith = Metalsmith(__dirname)
             title: "Visualcosita",
             url: "http://visualcosita.xyz",
             author: "Fernando Valverde <fdov88@gmail.com>",
-            debug: true
+            debug: !deploy
         }
     })
     .destination('./build')
