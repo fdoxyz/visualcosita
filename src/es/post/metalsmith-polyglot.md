@@ -1,6 +1,6 @@
 ---
 title: metalsmith-polyglot
-date: 2015-11-15
+date: 2015-11-14
 layout: post.jade
 lang: es
 ---
