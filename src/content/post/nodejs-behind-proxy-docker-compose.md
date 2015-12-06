@@ -3,6 +3,7 @@ title: Load balancing a Node.js app behind nginx proxy managed by docker compose
 date: 2015-11-30
 layout: post.jade
 lang: en
+tags: docker node.js nginx proxy mongodb docker-compose
 ---
 
 [Docker](https://www.docker.com/), am I too late for the hype? So, I went to [DockerCon EU](http://europe-2015.dockercon.com/) a couple of weeks ago and even though I was not as experienced on Docker as most people out there, still managed to have a great time. The **speakers**, the **announcements**, the **demos**, the **food**... Everything incredible from beginning to end, on top of it learned lots of cool stuff and met some nice people. [**Swarm 1.0**](https://blog.docker.com/2015/11/swarm-1-0/) was kind of a big deal throughout the conference, and I'm looking forward to getting my hands dirty with it. But one step at a time, let's get into **docker-compose** first.
@@ -53,13 +54,13 @@ loadb:
     - "80:80"
 ```
 
-As you can see in **#1**, the `front` container is exposing `~^front\..*\.xip\.io`. This will take advantage of [xip.io](http://xip.io) wildcard DNS, in the case you are running on a **docker-machine** (like me) you can browse to `front.MACHINE_IP.xip.io` and they will resolve to `front.MACHINE_IP`, this helps with some development hassle.
+As you can see in **#1**, the `front` container is exposing `~^front\..*\.xip\.io`. This will take advantage of [xip.io](http://xip.io) wildcard DNS, in case you are running on a **docker-machine** (like me) you can browse to `front.MACHINE_IP.xip.io` and they will resolve to `front.MACHINE_IP`, this helps with some development hassle.
 
 The link with the database is made on **#2**.
 
-The nginx-proxy image needs to communicate with the docker daemon, on a Mac **#3** variables and **#4** volume mount set everything nginx needs (certificates and paths) to make this possible.
+The nginx-proxy image needs to communicate with the docker daemon, for Mac systems **#3** variables and **#4** volume mount set everything nginx needs (certificates and paths to enable the connection).
 
-Meanwhile **#5** is just there for native Linux support (simply mounting the docker socket) but it has no effect on Mac systems.
+**#5** is just there for native Linux support (way simpler: directly mount the docker socket) but it has no effect on Mac systems.
 
 #### JUST DO IT
 

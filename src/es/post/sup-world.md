@@ -3,6 +3,7 @@ title: Sup world
 date: 2015-11-01
 layout: post.jade
 lang: es
+tags: javascript blog metalsmith node.js markdown
 ---
 
 Este es el trato: Pruebo diferentes tecnologías que me interesen, documento todo aquí y vos me ayudás a recordar cualquier cosa medianamente interesante que encuentre. Estaba hablando con [git](https://git-scm.com/), pero bueno, me gusta que me vean así que pongámonos de una a lo que vinimos.

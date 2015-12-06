@@ -3,6 +3,7 @@ title: Sup world
 date: 2015-11-01
 layout: post.jade
 lang: en
+tags: javascript blog metalsmith node.js markdown
 ---
 
 Here's the deal: I try out shiny stuff I'm interested in, document most of it here and you help me remember anything useful I've learned in the process. I was actually talking to [git](https://git-scm.com/), didn't see you standing there. Oh well, I fancy being watched anyways, let's get started.
