@@ -10,7 +10,7 @@ I'm surprised by the fact I haven't stumbled upon a single article with this tit
 
 #### Extensions
 
-This simple pattern for structuring your code definitely makes it nicer on the eye. Delegates and DataSources (`UITextFieldDelegate`, `UITextViewDelegate`, `UITableViewDataSource`, etc...) are the perfect example for extending your View Controllers inside their own class file (usually at the bottom), everything remains "encapsulated" and readable.
+This simple pattern for structuring your code definitely makes it nicer on the eye. Delegates and DataSources (`UITextFieldDelegate`, `UITextViewDelegate`, `UITableViewDataSource`, etc...) are the perfect example for extending your View Controllers inside their own class file, everything remains "encapsulated" and readable.
 
 ```
 class HomeViewController : UIViewController {
