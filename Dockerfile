@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y curl && \
 ADD package.json /tmp/package.json
 RUN cd /tmp && \
     npm install
-EXPOSE 80 443
+EXPOSE 80
+EXPOSE 443
 
 # Source->Deploy->Cleanup
 ADD . /tmp
