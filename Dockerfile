@@ -4,9 +4,6 @@
 FROM mhart/alpine-node:4
 MAINTAINER Fernando Valverde <fdov88@gmail.com>
 
-#VOLUME /etc/ssl/certs
-#COPY /etc/ssl/certs/visualcosita-key.pem /etc/ssl/certs/visualcosita-key.pem
-#COPY /etc/ssl/certs/visualcosita-cert.pem /etc/ssl/certs/visualcosita-cert.pem
 WORKDIR /app
 
 # Dependencies
