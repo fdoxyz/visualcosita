@@ -3,16 +3,34 @@ extends ./partials/layout
 - var localizedPosts = (language === "en") ?  collections.posts : collections.spanishPosts
 
 block content
+    if language === "en"
+        div.article-teaser
+            p.
+                This is becoming a place for me to write every now and then about stuff I do/experiment. Ocassionally those little frankensteins end up hosted here too.
+            p.
+                I'm still unsure if I should write more PC, probably will try but won't 'clean' older posts. Practice makes perfect, try to keep that in mind that when browsing old (ie: pre-practice) posts.
+            p.
+                Basically a work in progress that never ends, Pura Vida.
+    else
+        div.article-teaser
+            p.
+                Este es el resultado de mi curiosidad y la idea (no inventé el agua caliente) de documentarlo. Los frankensteins resultan hosteados aquí también eventualmente.
+            p.
+                Creo que debería escribir un poquito más PC y probablemente así será, pero no limpiaré lo que ya está hecho. 'La práctica hace al maestro', para que lo tengan en cuenta si leen posts viejos, previo a algo de práctica.
+            p.
+                Básicamente un trabajo en progreso sin fin, Pura Vida.
     ul.article-list
         if language === "en"
             each post in collections.posts
                 li
-                    div.article
+                    div.article-teaser
                         h2.article-title
                             - var link = "/" + post.path
                             a(href="#{link}") #{post.title}
                         div.article-date #{moment(post.date).format("MMMM Do YYYY")}
                         div.article-teaser!= post.excerpt
+                        span
+                            a(href="#{link}" class="read-more") moar...
         else
             each post in collections.spanishPosts
                 li
@@ -22,3 +40,5 @@ block content
                             a(href="#{link}") #{post.title}
                         div.article-date #{moment(post.date).format("MMMM Do YYYY")}
                         div.article-teaser!= post.excerpt
+                        span
+                            a(href="#{link}" class="read-more") más...

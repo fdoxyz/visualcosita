@@ -1,27 +1,22 @@
 #######################################################
 # Dockerfile for building my metalsmith powered website
 #######################################################
-FROM nginx
+FROM mhart/alpine-node:4
 MAINTAINER Fernando Valverde <fdov88@gmail.com>
 
-# Install NodeJS
-RUN apt-get update && apt-get install -y curl && \
-    curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
-    apt-get install -y nodejs
+#VOLUME /etc/ssl/certs
+#COPY /etc/ssl/certs/visualcosita-key.pem /etc/ssl/certs/visualcosita-key.pem
+#COPY /etc/ssl/certs/visualcosita-cert.pem /etc/ssl/certs/visualcosita-cert.pem
+WORKDIR /app
 
-# Copy dependencies & install them
-# This layer will cache dependencies while they don't change
-ADD package.json /tmp/package.json
-RUN cd /tmp && \
-    npm install
-EXPOSE 80
-EXPOSE 443
+# Dependencies
+ADD package.json /app/package.json
+RUN npm config set registry http://registry.npmjs.org
+RUN npm install && npm ls
+RUN mv /app/node_modules /node_modules
 
-# Source->Deploy->Cleanup
-ADD . /tmp
-RUN cd /tmp && \
-    node index.js deploy && \
-    mv build/* /usr/share/nginx/html && \
-    apt-get clean && \
-    npm uninstall npm -g && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#Generate site
+ADD . /app
+RUN node build.js deploy
+
+CMD ["node", "server.js"]

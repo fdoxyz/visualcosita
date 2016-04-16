@@ -12,7 +12,7 @@ This is a simple plugin I made to link the translated content of my static websi
 
 For translating a whole blog, the structure to organize the content was the first thing to settle before starting to write anything else. With a homepage and a bunch of posts the general structure will be easy, url paths like `visualcosita.xyz/post/title` and for translations just add the language code prefix `visualcosita.xyz/es/post/title`. Easy right? Here's my project structure:
 
-```
+```Makefile
 src/
     content/
         index.md
@@ -67,7 +67,7 @@ Eveything works, life is awesome! Now I have both versions, the base language (e
 
 Parse the files, add some metadata to Metalsmith's pipe and also take advantage of the file structure in templating time to make a clean redirect. Stick `polyglot` right before the template engine, which might be handlebars or something else, in my case Jade.
 
-```
+```js
 .use(branch('es/post/**.html')
     .use(permalinks({
         pattern: 'es/post/:title'
@@ -82,7 +82,7 @@ Parse the files, add some metadata to Metalsmith's pipe and also take advantage 
 
 What will this help me with? A new variable in the metadata of each file with the following structure:
 
-```
+```json
 "post/sup-world.html": {
     ...
     translationPath : {
@@ -95,7 +95,7 @@ What will this help me with? A new variable in the metadata of each file with th
 
 So what's so useful about it? I can know beforehand -during template rendering- the path (if there is one) of the translation for a file. The template navigation for this website looks like this:
 
-```
+```js
 li.navbar-item
     - var langString = (lang === "en") ? "ES" : "EN"
     - var translatedUrl = (lang === "en") ? translationPath.es : translationPath.en

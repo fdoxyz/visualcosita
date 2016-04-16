@@ -30,7 +30,7 @@ This is where things started to get tricky, at least on nginx the conf file need
 
 Each app container needs to expose `VIRTUAL_HOST` env variable that the proxy will take as the upstream (forwading) addr. An in-depth explanation can be found in the [original post.](http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/) The `docker-compose.yml` file is the following:
 
-```
+```Bash
 front:
     build: .
     environment:

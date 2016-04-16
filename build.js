@@ -18,7 +18,7 @@ var metalsmith = Metalsmith(__dirname)
     .metadata({
         site: {
             title: "Visualcosita",
-            url: "http://visualcosita.xyz",
+            url: "https://visualcosita.xyz",
             author: "Fernando Valverde <fdov88@gmail.com>",
             debug: !deploy
         }

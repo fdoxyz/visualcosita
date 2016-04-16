@@ -12,7 +12,7 @@ I'm surprised by the fact I haven't stumbled upon a single article with this tit
 
 This simple pattern for structuring your code definitely makes it nicer on the eye. Delegates and DataSources (`UITextFieldDelegate`, `UITextViewDelegate`, `UITableViewDataSource`, etc...) are the perfect example for extending your View Controllers inside their own class file, everything remains "encapsulated" and readable.
 
-```
+```swift
 class HomeViewController : UIViewController {
   ...
 }

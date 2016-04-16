@@ -12,7 +12,7 @@ Este es un plugin sencillo que programé para traducir el contenido de esta pág
 
 Para traducir el contenido completo de un blog, la estructura para organizarlo es lo más fundamental y por lo tanto es lo primero por definir. La página consiste de artículos (posts) con direcciones del siguiente estilo `visualcosita.xyz/post/title` y sus traducciones serán `visualcosita.xyz/es/post/title`. Sencillo cierto? Esta es mi estructura
 
-```
+```Makefile
 src/
     content/
         index.md
@@ -67,7 +67,7 @@ Por el momento todo funciona, excelente. Ahora tenemos dos versiones traducidas,
 
 Procesar los archivos y agregar metadatos al pipe de Metalsmith, de forma que se puede tomar ventaja de la estructura del directorio para agregar los links de redirección en tiempo de generación en las plantillas. Metemos `polyglot` justo antes del llamado de `layouts`, que puede ser handlebars o cualquier otro, en mi caso utilizo Jade.
 
-```
+```js
 .use(branch('es/post/**.html')
     .use(permalinks({
         pattern: 'es/post/:title'
@@ -82,7 +82,7 @@ Procesar los archivos y agregar metadatos al pipe de Metalsmith, de forma que se
 
 ¿En qué me ayuda esto? Ahora tengo una nueva variable en metadatos con la ubicación exacta del archivo traducido. La estructura de la nueva variable es la siguiente:
 
-```
+```json
 "post/sup-world.html": {
     ...
     translationPath : {
@@ -95,7 +95,7 @@ Procesar los archivos y agregar metadatos al pipe de Metalsmith, de forma que se
 
 ¿Y cómo resulta útil? Puedo saber en tiempo de generación en plantillas el destino al que quiero redireccionar. Por ejemplo, la plantilla para la navegación de esta página web es la siguiente:
 
-```
+```js
 li.navbar-item
     - var langString = (lang === "en") ? "ES" : "EN"
     - var translatedUrl = (lang === "en") ? translationPath.es : translationPath.en

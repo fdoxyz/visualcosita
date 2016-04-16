@@ -34,5 +34,8 @@
     "metalsmith-watch": "^1.0.1",
     "mocha": "^2.3.3",
     "moment": "^2.10.6"
+  },
+  "dependencies": {
+    "node-static": "^0.7.7"
   }
 }
