@@ -6,7 +6,7 @@ lang: es
 tags: javascript blog metalsmith node.js markdown plugin translation
 ---
 
-Este es un plugin sencillo que programé para traducir el contenido de esta página web, creada con Metalsmith. Para los que no conocen Metalsmith, mi definición es *un generador de páginas estáticas que permite procesar directorios utilizando un pipeline* pero en la [página oficial](http://www.metalsmith.io/) explican mucho mejor sin duda. En mi [post anterior](/es/post/metalsmith-polyglot) explico por qué elegí Metalsmith y algunas sugerencias de tutoriales para comenzar. Así que, `npm install metalsmith-polyglot` y comenzemos a lo que vinimos.
+Este es un plugin sencillo que programé para traducir el contenido de esta página web, creada con Metalsmith. Para los que no conocen Metalsmith, mi definición es *un generador de páginas estáticas que permite procesar directorios utilizando un pipeline* pero en la [página oficial](http://www.metalsmith.io/) explican mucho mejor sin duda. En mi [post anterior](/es/post/sup-world/) explico por qué elegí Metalsmith y algunas sugerencias de tutoriales para comenzar. Así que, `npm install metalsmith-polyglot` y comenzemos a lo que vinimos.
 
 #### La estructura del proyecto
 
