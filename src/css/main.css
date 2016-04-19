@@ -109,7 +109,7 @@ ul.article-list {
 }
 
 p {
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 0.5px;
     margin-bottom: 2rem
 }
@@ -117,7 +117,7 @@ p {
 code {
     overflow-x: auto;
     background-color: inherit;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 img {
@@ -174,7 +174,7 @@ p > img {
     }
 
     .article-title {
-        font-size: 25px;
+        font-size: 40px;
     }
 
     .article-date {
@@ -192,10 +192,10 @@ p > img {
     }
 
     p {
-        font-size: 18px;
+        font-size: 19px;
     }
 
     code {
-        font-size: 13px;
+        font-size: 14px;
     }
 }
