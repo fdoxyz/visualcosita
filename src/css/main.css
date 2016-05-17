@@ -34,6 +34,10 @@ ul.navbar-container {
     font-size: 18px;
 }
 
+li {
+  font-size: 16px;
+}
+
 li.navbar-item {
     margin: 0;
     display: inline;
@@ -165,6 +169,10 @@ p > img {
         margin-left: 25px;
     }
 
+    li {
+      font-size: 19px;
+    }
+
     li.navbar-item {
         margin-top: 15px;
     }
@@ -196,6 +204,6 @@ p > img {
     }
 
     code {
-        font-size: 14px;
+        font-size: 13px;
     }
 }
