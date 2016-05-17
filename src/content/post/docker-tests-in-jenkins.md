@@ -6,7 +6,7 @@ lang: en
 tags: Docker tests Jenkins dokku continuous integration CI
 ---
 
-This post is a walk through my setup for managing [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) on personal projects with [Jenkins](https://jenkins.io/) using _dockerized_ tests. A little context: I'm using [Dokku PaaS](http://dokku.viewdocs.io/dokku/) to host most of these experiments (including this blog) so Jenkins will help as a self-hosted & open source CI solution. The example repo will be [fdoxyz/metalsmith-polyglot](https://github.com/fdoxyz/metalsmith-polyglot) and will continue to test all Pull Requests from now on.
+This post walks through my setup for managing [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) on personal projects with [Jenkins](https://jenkins.io/) using _dockerized_ tests. A little context: I'm using [Dokku PaaS](http://dokku.viewdocs.io/dokku/) to host most of these experiments (including this blog) so Jenkins will help as a self-hosted & open source CI solution. The example repo will be [fdoxyz/metalsmith-polyglot](https://github.com/fdoxyz/metalsmith-polyglot) and will continue to test all Pull Requests from now on.
 
 A little familiarity with Docker and Dokku is recommended before attempting this _guide (?)_. I've talked about them in other posts and would suggest go read their docs first ([docker](https://docs.docker.com/) & [dokku](http://dokku.viewdocs.io/dokku/)) if not comfortable with them. I knew nothing about Jenkins before this, so that shouldn't be much of a problem.
 
