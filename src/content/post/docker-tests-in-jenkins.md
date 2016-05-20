@@ -126,7 +126,7 @@ test: node_modules
 	$(mocha) $(options)
 ```
 
-If the env variable `MOCHA_FILE` is set, then the JUnit reporter will be used to be consumed by Jenkins (stats, analytics and stuff). This way developers execute a normal mocha test suite but when executed by Jenkins (later on) will use a custom reporter.
+If the env variable `MOCHA_FILE` is set, then the JUnit reporter will be used to be consumed by Jenkins (stats, analytics and stuff). This way developers execute a normal mocha test suite but when executed by Jenkins (next step) will use a custom reporter.
 
 ### Job configuration & build steps
 
@@ -162,7 +162,7 @@ sudo docker run --name $JOB_NAME-$BUILD_NUMBER-test -v $PWD:/opt/results --env M
 sudo docker run --name $JOB_NAME-$BUILD_NUMBER-reader -v $PWD:/opt/results alpine cat /opt/results/test-results.xml > test-results.xml
 ```
 
-* Forth and last build step, container cleanup.
+* Fourth and last build step, container cleanup.
 
 ```bash
 sudo docker rm $JOB_NAME-$BUILD_NUMBER-test $JOB_NAME-$BUILD_NUMBER-reader
