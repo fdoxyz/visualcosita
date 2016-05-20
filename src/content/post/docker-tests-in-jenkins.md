@@ -14,9 +14,7 @@ I'm using a $10/month droplet on [DigitalOcean](https://m.do.co/c/a0486648b173).
 
 They also have a [_one-click-app_](https://m.do.co/c/a0486648b173) droplet button to deploy Dokku in case you're interested in an easy setup. Btw it's dangerous to go alone, take this [referral bonus for free $10](https://m.do.co/c/a0486648b173) on your first droplet.
 
-Making a Jenkins container work with Docker was a little bit of a struggle. There are multiple approaches but none worked with my bizarre ideas. [gianarb's blog](http://gianarb.it/blog/docker-inside-docker-and-jenkins-2) had a great starting point but I had to look into other articles like [container-solutions](http://container-solutions.com/running-docker-in-jenkins-in-docker/) and lots of debugging to make it work the way I wanted.
-
-Just to clarify, this is probably not the best way to test, it's just a way I wanted to try out. Once I got all the pieces working together it plays nicely, I believe __clean containerized tests__ can be reliable. To scale this out for a docker-compose setup is a future endeavour.
+Just to clarify: This might not be the best way to test, it's just a way I wanted to try out. Once I got all the pieces working together it plays nicely, I believe __clean containerized tests__ can be reliable. To scale this out for a docker-compose setup is a future endeavour. Before getting started a quick shoutout to [gianarb's blog](http://gianarb.it/blog/docker-inside-docker-and-jenkins-2) & [container-solutions](http://container-solutions.com/running-docker-in-jenkins-in-docker/) for helping me set most of this 'docker-in-docker' setup.
 
 ### Jenkins in a container managed by Dokku
 
@@ -174,7 +172,7 @@ sudo docker rm $JOB_NAME-$BUILD_NUMBER-test $JOB_NAME-$BUILD_NUMBER-reader
 
 ### Pull Request
 
-Now PR's will trigger a build and the jenkins GitHub user will update the status depending on the tests suite result.
+Now PR's will trigger a build and the Jenkins GitHub user will update the status depending on the tests suite result.
 
 ![PR passing tests](/img/pr-passing.png "PR passing tests")
 
@@ -186,4 +184,4 @@ To recap, Jenkins lives inside a container managed by Dokku and runs tests as si
 
 IMHO Jenkins deployments with master-slave setups are the way to go for real projects that require serious scaling, but hosting Jenkins with ease in a PaaS for personal projects was neat to figure out.
 
-Does this makes no sense whatsoever to you? Am I murdering docker-in-docker? [Is this real life?](http://gph.is/13FrfSQ) Constructive criticism is greatly appreciated, Pura Vida.
+Does this testing makes no sense to you? Am I murdering docker-in-docker? [Is this real life?](http://gph.is/13FrfSQ) Constructive criticism is greatly appreciated, Pura Vida.
