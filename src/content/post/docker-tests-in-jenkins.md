@@ -14,7 +14,7 @@ I'm using a $10/month droplet on [DigitalOcean](https://m.do.co/c/a0486648b173).
 
 They also have a [_one-click-app_](https://m.do.co/c/a0486648b173) droplet button to deploy Dokku in case you're interested in an easy setup. Btw it's dangerous to go alone, take this [referral bonus for free $10](https://m.do.co/c/a0486648b173) on your first droplet.
 
-Just to clarify: This might not be the best way to test, it's just a way I wanted to try out. Once I got all the pieces working together it plays nicely, I believe __clean containerized tests__ can be reliable. To scale this out for a docker-compose setup is a future endeavour. Before getting started a quick shoutout to [gianarb's blog](http://gianarb.it/blog/docker-inside-docker-and-jenkins-2) & [container-solutions](http://container-solutions.com/running-docker-in-jenkins-in-docker/) for helping me set most of this 'docker-in-docker' setup.
+Just to clarify: This might not be the best way to test, it's just a way I wanted to try out. Once I got all the pieces working together it plays nicely, I believe __clean containerized tests__ can be reliable. To scale this out for a docker-compose setup is a future endeavour. Before getting started, kudos to [gianarb's blog](http://gianarb.it/blog/docker-inside-docker-and-jenkins-2) & [container-solutions](http://container-solutions.com/running-docker-in-jenkins-in-docker/) for helping me set up most of this 'docker-in-docker' environment.
 
 ### Jenkins in a container managed by Dokku
 
@@ -64,25 +64,22 @@ To test Jenkins can execute docker commands, create an empty job that executes a
 
 Lots of good tutorials out there cover this in depth, like [terlici blog post](https://www.terlici.com/2015/09/29/automated-testing-with-node-express-github-and-jenkins.html) did for testing node projects (using a plugin we won't need here). I'll just give a quick overview of what's necessary for the GitHub plugin integration I was looking for:
 
-* First install the [GitHub Pull Request Builder](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin) plugin:
-
+1. Install the [GitHub Pull Request Builder](https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin) plugin
 ```bash
 Jenkins > Manage Jenkins > Manage Plugins
 ```
 
-* Create a separate GitHub account for your Jenkins to use and request an access token in GitHub with the required permissions:
-
+2. Create a separate GitHub account for your Jenkins to use and request an access token in GitHub with the required permissions
 ```bash
 GitHub > Personal settings > Personal access tokens > Generate new token
 ```
 
-* Add the access token generated in the previous step as credentials (tip: select __'Kind: Secret Text'__ instead of the default __'Username with password'__, at first it took me a while to figure it out):
-
+3. Add the access token generated in the previous step as credentials (tip: select __'Kind: Secret Text'__ instead of the default __'Username with password'__, at first it took me a while to figure it out)
 ```bash
 Jenkins > Manage Jenkins > Configure System > Pull Request Builder > Credentials > Add
 ```
 
-* Finally add the new user as collaborator to the projects you want to test
+4. Finally add the new user as collaborator to the projects you want to test
 
 ### Da test
 
@@ -130,45 +127,40 @@ If the env variable `MOCHA_FILE` is set, then the JUnit reporter will be used to
 
 ### Job configuration & build steps
 
-* Create a Freestyle Project.
-
+1. Create a Freestyle Project.
 ```bash
 Jenkins > New Item
 ```
 
-* In _General_ set as GitHub project and provide the repo url.
+2. In ___General___ set as GitHub project and provide the repo url.
 
-* In _Source Code Management_ select Git and set the Repositories (no credentials needed in this case) and leave blank 'Branches to build' for building all branches.
+3. In ___Source Code Management___ select Git and set the Repositories (no credentials needed in this case) and leave blank 'Branches to build' for building all branches.
 
-* In _Build Triggers_ select GitHub Request Builder and check 'Use github hooks for build triggering'.
+4. In ___Build Triggers___ select GitHub Request Builder and check 'Use github hooks for build triggering'.
 
-* In _Build Environment_ I selected 'Delete workspace before build starts' and also like to see timestamps in the Console Output... Whatever floats your boat.
+5. In ___Build Environment___ I selected 'Delete workspace before build starts' and also like to see timestamps in the Console Output... Whatever floats your boat.
 
-* In _Build_ Docker hits the fan. It consists of 4 build steps, all of them 'Execute shell'. First one builds the test docker image.
-
+6. In ___Build___ Docker hits the fan. It consists of 4 build steps, all of them 'Execute shell'. The first one builds the test docker image.
 ```bash
 sudo docker build -t fdoxyz/metalsmith-polyglot .
 ```
 
-* Second one executes the test. It names the container for later disposal, mounts a volume for later retrieval of the JUnit results and sets the `MOCHA_FILE`.
-
+7. The second bash command actually executes the test. It names the container for later disposal, mounts a volume for later retrieval of the JUnit results and sets the `MOCHA_FILE` ENV variable.
 ```bash
 sudo docker run --name $JOB_NAME-$BUILD_NUMBER-test -v $PWD:/opt/results --env MOCHA_FILE=/opt/results/test-results.xml fdoxyz/metalsmith-polyglot
 ```
 
-* The third one was a big headache. An alpine container retrieves the results from the volume mounted in the tests container (from the previous step) into the workspace. It's easy to mess up the volume mounts, Jenkins itself is running in a container with a mounted volume. I won't elaborate, but if you have any doubts feel free to ask in the comments.
-
+8. The third bash command one was a big headache. An alpine container retrieves the results from the volume mounted in the tests container (from the previous step) into the workspace. It's easy to mess up the volume mounts, Jenkins itself is running in a container with a mounted volume. I won't elaborate, but if you have any doubts feel free to ask in the comments.
 ```bash
 sudo docker run --name $JOB_NAME-$BUILD_NUMBER-reader -v $PWD:/opt/results alpine cat /opt/results/test-results.xml > test-results.xml
 ```
 
-* Fourth and last build step, container cleanup.
-
+9. Fourth and last build step is basically container cleanup.
 ```bash
 sudo docker rm $JOB_NAME-$BUILD_NUMBER-test $JOB_NAME-$BUILD_NUMBER-reader
 ```
 
-* Finally in _Post-build Actions_ add 'Publish JUnit test result report' and set 'Test report XMLs' to 'test-results.xml', which is the file we retrieved from the container filesystem in the third build step. Also add 'Set status for GitHub commit [universal]'.
+10. Finally in ___Post-build Actions___ add 'Publish JUnit test result report' and set 'Test report XMLs' to 'test-results.xml', which is the file we retrieved from the container filesystem in the third build step. Also add 'Set status for GitHub commit [universal]'.
 
 ### Pull Request
 
@@ -182,6 +174,6 @@ A more detailed explanation of the test execution might be possible on failed te
 
 To recap, Jenkins lives inside a container managed by Dokku and runs tests as sibling containers on demand.
 
-IMHO Jenkins deployments with master-slave setups are the way to go for real projects that require serious scaling, but hosting Jenkins with ease in a PaaS for personal projects was neat to figure out.
+[IMHO](http://www.urbandictionary.com/define.php?term=IMHO) Jenkins deployments with master-slave setups are the way to go for serious organizations that require scaling. However, hosting Jenkins with ease in a self-hosted PaaS for personal projects was neat to figure out and now they all live happily in a single VPS, each in their own container :)
 
-Does this testing makes no sense to you? Am I murdering docker-in-docker? [Is this real life?](http://gph.is/13FrfSQ) Constructive criticism is greatly appreciated, Pura Vida.
+Does this testing strategy makes no sense at all? Am I murdering docker-in-docker? Could this actually be an interesting solution for isolated tests? [Is this real life?](http://gph.is/13FrfSQ) Constructive criticism is greatly appreciated, Pura Vida.

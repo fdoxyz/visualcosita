@@ -137,6 +137,13 @@ p > img {
     margin-top: 10px;
 }
 
+iframe {
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 ::selection {
     color: #fff;
     background: #ff207d; /* WebKit/Blink Browsers */
@@ -144,6 +151,10 @@ p > img {
 ::-moz-selection {
     color: #fff;
     background: #ff207d; /* Gecko Browsers */
+}
+
+.article-content > ol > li {
+  margin-left: 10px;
 }
 
 @media (min-width: 400px) {
@@ -161,6 +172,10 @@ p > img {
 
     .article-teaser {
         margin-top: 5px;
+    }
+
+    .article-content > ol > li {
+      margin-left: 25px;
     }
 }
 
