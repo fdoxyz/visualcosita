@@ -118,6 +118,6 @@ Nevertheless, testing the swarm manager leader reelection and scheduling on huge
 
 The swarm team was able to reconstruct the swarm manager and analyze their data a couple of days later. Apparently 100k tasks [were NOT able to be provisioned due to scheduling on failing nodes](https://twitter.com/upthecyberpunks/status/759190678681202689). A hell of a ride and probably one of the geekiest Friday evenings I've spent. The Docker team and community haven't ceased to amaze me since day 1.
 
-Totally worth it, and our grain of salt was sent back to the team working on these amazing tools we use every day. In case you want to read more about this, [@chanwit's blog post](https://blog.online.net/2016/07/29/docker-swarm-an-analysis-of-a-very-large-scale-container-system/) goes through some interesting aftermath of the experiment.
+Totally worth it, and our experiment gave back something to the team working on these amazing tools we use every day. In case you want to read more about this, [@chanwit's blog post](https://blog.online.net/2016/07/29/docker-swarm-an-analysis-of-a-very-large-scale-container-system/) goes through some interesting aftermath of the experiment.
 
 Pura Vida.
