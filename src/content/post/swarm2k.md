@@ -45,7 +45,7 @@ Once the nodes started rolling lots of us ran into some problems, including clou
 
 When the excitement kicked in, and seeing we were short of the +3000 nodes claimed to be contributed (and kinda close to the 2000 objective) I thought it would be a good idea to spin as many as possible instead of my 5 node contribution.
 
-Considering I was creating __t2.nano__ instances the cost would never exceed my credit with a couple of hours of intense usage. Which turned out to be 342 __t2.nano__ instance hours, or $2.30... Just lol. And this was great, because I learned a lot from this.
+Considering I was creating __t2.nano__ instances the cost would never exceed my credit with a couple of hours of intense usage. Which turned out to be 342 __t2.nano__ instance hours, or $2.30... Just lol. And it was great, I learned a couple of things from this.
 
 #### Lessons learned from AWS & docker-machine
 
@@ -68,9 +68,9 @@ Right after that came the join script of those 20 nodes:
 
 ![Join script output](/img/swarm2k-join.png "Join script output")
 
-This was so simple and fast it was actually difficult to believe they were actually a part of the swarm. Worth noting that my first 20 nodes were created in AWS eu-west-1 (Ireland) and the swarm managers lived in DigitalOcean NYC (one of them).
+This was so simple and fast it was actually difficult to believe they were actually a part of the swarm. Worth noting that my first 20 nodes were created in AWS eu-west-1 (Ireland) and the swarm managers lived in one of the DigitalOcean NYC datacenter regions.
 
-After creating 100 instances (around US & Europe regions) and joining the swarm I ran a script that executed the following command (based on a suggestion made by a ninja in the chat room):
+After creating 100 instances (using all US & Europe regions) and joining the swarm I ran a script that executed the following command (based on a suggestion made by a ninja in the chat room):
 
 ```bash
 docker-machine ssh swarm2k-$i                           \
