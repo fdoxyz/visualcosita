@@ -1,6 +1,6 @@
 ---
 title: Swarm2k
-date: 2016-31-07
+date: 2016-07-31
 layout: post.jade
 lang: en
 tags: docker swarm orchestration linux cluster aws ec2 containers
