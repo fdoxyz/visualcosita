@@ -6,7 +6,11 @@ lang: en
 tags: docker node.js nginx proxy mongodb docker-compose
 ---
 
-[Docker](https://www.docker.com/), am I too late for the hype? So, I went to [DockerCon EU](http://europe-2015.dockercon.com/) a couple of weeks ago and even though I was not as experienced on Docker as most people out there, still managed to have a great time. The **speakers**, the **announcements**, the **demos**, the **food**... Everything incredible from beginning to end, on top of it learned lots of cool stuff and met some nice people. [**Swarm 1.0**](https://blog.docker.com/2015/11/swarm-1-0/) was kind of a big deal throughout the conference, and I'm looking forward to getting my hands dirty with it. But one step at a time, let's get into **docker-compose** first.
+So, I went to [DockerCon EU](http://europe-2015.dockercon.com/) a couple of weeks ago and even though I was not as experienced on Docker as most people out there, still managed to have a great time. The **speakers**, the **announcements**, the **demos**, the **food**... Everything incredible from beginning to end, on top of it learned lots of cool stuff and met some nice people. [**Swarm 1.0**](https://blog.docker.com/2015/11/swarm-1-0/) was kind of a big deal throughout the conference, and I'm looking forward to getting my hands dirty with it. But one step at a time, let's get into **docker-compose** first.
+
+#### DEPRECATION NOTE
+
+Although happy to see the docker environment move at such fast pace, I'm saddened to say this article is out of date. [New versions of docker](https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/) ship with load balancing and service discovery. Still, lots of interesting projects can be built using some of the concepts/tools detailed here. Therefore I'll leave this article unmodified, but this is a note for newcomers to the world of docker: [This is not the introduction to docker/docker-compose you're looking for](https://www.youtube.com/watch?v=532j-186xEQ).
 
 #### The architecture
 
