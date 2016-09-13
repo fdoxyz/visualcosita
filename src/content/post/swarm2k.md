@@ -112,12 +112,10 @@ Soon after that I closed all the tabs since too many containers were created to 
 
 #### Conclusions
 
-IMHO there is no real utility for creating a swarm this big, that I can think of at least. It might be more cost efficient to gather lots of small nodes than some medium-big instances, but when talking about thousands of nodes it will most likely be an overkill (or a bad implementation).
-
-Nevertheless, testing the swarm manager leader reelection and scheduling on huge deployments was interesting (and fun). It's cool (and quite nerdy) to think about the fact that 100 instances of mine spread through 5 different AWS regions were [working together with ~2100 other nodes](https://www.youtube.com/watch?v=e_DqV1xdf-Y) spread over the world.
+Testing the swarm manager leader reelection and scheduling on huge deployments was interesting (and fun). It's cool (and quite nerdy) to think about the fact that 100 instances of mine spread through 5 different AWS regions were [working together with ~2100 other nodes](https://www.youtube.com/watch?v=e_DqV1xdf-Y) spread over the world.
 
 The swarm team was able to reconstruct the swarm manager and analyze their data a couple of days later. Apparently 100k tasks [were NOT able to be provisioned due to scheduling on failing nodes](https://twitter.com/upthecyberpunks/status/759190678681202689). A hell of a ride and probably one of the geekiest Friday evenings I've spent. The Docker team and community haven't ceased to amaze me since day 1.
 
-Totally worth it, and our experiment gave back something to the team working on these amazing tools we use every day. In case you want to read more about this, [@chanwit's blog post](https://blog.online.net/2016/07/29/docker-swarm-an-analysis-of-a-very-large-scale-container-system/) goes through some interesting aftermath of the experiment.
+Totally worth it, and the experiment gave back something to the team working on these amazing tools we use every day. In case you want to read more about this, [@chanwit's blog post](https://blog.online.net/2016/07/29/docker-swarm-an-analysis-of-a-very-large-scale-container-system/) goes through some interesting aftermath of the experiment.
 
 Pura Vida.
