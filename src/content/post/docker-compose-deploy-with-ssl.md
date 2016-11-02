@@ -109,8 +109,8 @@ __Hint:__ Avoid adding your certificates to source control.
 FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY visualcosita.crt /etc/nginx/ssl/visualcosita.crt
-COPY visualcosita.key /etc/nginx/ssl/visualcosita.key
+COPY certificate.crt /etc/nginx/ssl/certificate.crt
+COPY certificate.key /etc/nginx/ssl/certificate.key
 ```
 
 Build and push the container image to the trusted registry:
@@ -187,8 +187,8 @@ networks:
 
 Now we have 3 services publicly available via HTTPS.
 
-Like I wrote before, scaling services in docker-compose [is simple](https://docs.docker.com/compose/reference/scale/) and the load balancing is built-in. You'll benefit from the fact that it will be indifferent if you're testing locally, deploying in a single EC2 instance or a Swarm manager.
+Like I wrote before, scaling services in docker-compose [is simple](https://docs.docker.com/compose/reference/scale/) and the load balancing is built-in. You'll benefit from the fact that it will be indifferent if you're testing locally, deploying to a single EC2 instance or a Swarm.
 
-Updating a new version of a service will be a matter of pushing a new image to the registry and executing `docker-compose pull` & `docker-compose up -d`. In a swarm you even get [rolling updates](https://docs.docker.com/engine/swarm/swarm-tutorial/rolling-update/) out of the box.
+Updating a service will be a matter of pushing a new image to the registry and executing `docker-compose pull` & `docker-compose up -d`. In a swarm you even get [rolling updates](https://docs.docker.com/engine/swarm/swarm-tutorial/rolling-update/) out of the box.
 
 There's some stuff from this post that can be automated, a lot to talk about that Jenkins service and room for improvement. But for now that's a wrap. Pura Vida.
