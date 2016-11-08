@@ -1,14 +1,14 @@
 ---
-title: Deploying services using docker-compose with TLS on EC2
+title: Publishing services using docker-compose and NGINX with HTTPS
 date: 2016-10-29
 layout: post.jade
 lang: en
 tags: Docker docker-compose TLS SSL HTTPS NGINX EC2 AWS Jenkins reverse proxy
 ---
 
-This post will break down an example setup to deploy multiple services secured with TLS using [docker-compose](https://docs.docker.com/compose/overview/). I already had an SSL certificate for this website and figured my experiments could benefit from HTTPS, so here we are. We'll use solely Docker tools and some manual NGINX configuration (I'm not a [wizard](http://27.media.tumblr.com/tumblr_lp0e10nvet1qc85hro1_500.gif), yet).
+This post will break down an example setup to deploy multiple HTTP services secured with TLS using [docker-compose](https://docs.docker.com/compose/overview/) with an NGINX proxy. I already had an SSL certificate for this website and figured my experiments could benefit from HTTPS, so here we are.
 
-A single EC2 instance (or DigitalOcean, Azure, GCE, etc. equivalent) is more than enough to handle this, so less is better in this case. A single `docker-compose.yml` will take care of the service layout. Since the compose file is compatible with [Docker Swarm](https://docker.github.io/swarm/overview/), scaling to a cluster with built-in orchestration becomes borderline trivial.
+A single EC2 instance (or DigitalOcean, Azure, GCE, etc. equivalent) is more than enough to handle this, so less is better in this case. The `docker-compose.yml` will take care of the service layout. Since the compose file is integrated with [Docker Swarm](https://docker.github.io/swarm/overview/), scaling to a cluster with built-in orchestration becomes borderline trivial.
 
 #### Before getting started
 
@@ -16,29 +16,33 @@ The services in this example consist of this website, a Jenkins (master) server,
 
 I'm assuming you deployed an instance in [AWS EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html) and installed [docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/) + [docker-compose](https://github.com/docker/compose/releases).
 
-[EC2 Container Registry (ECR)](https://aws.amazon.com/ecr/) is probably the easiest trusted registry for our private images. However, feel free to use a different solution based on your needs/preferences.
+[EC2 Container Registry (ECR)](https://aws.amazon.com/ecr/) is probably the easiest trusted registry for our private images in this case. Feel free to use a different solution based on your needs/preferences.
 
 __Hint:__ Setup an [IAM user/role](http://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) with restricted access to your account's resources.
 
 #### The Reverse Proxy
 
-You'll need an SSL private key and signed certificate. Check out [this gist](https://gist.github.com/bradmontgomery/6487319) if feeling a little lost on how to get/set it up. Then we can dig into the reverse proxy configuration file.
+You'll need an SSL private key and signed certificate. Check out [this gist](https://gist.github.com/bradmontgomery/6487319) if feeling a little lost on how to get/set it up. My certificate doesn't support subdomains (wildcard certificate = more $$), so I'll be using 'subfolders' to proxy different services.
 
-My certificate doesn't support subdomains (wildcard certificate = more $$), therefore I'll be using 'subfolders' to proxy different services. Note that adding new services or changes in their URIs will require manual editing of this reverse proxy. This is not ideal, but a price I'm willing to pay for a few reasons (discussion out of the scope).
+Note that adding new services or changes in their URIs will require manual editing of this reverse proxy. Maybe not ideal, but a price I'm willing to pay for a few reasons (discussion out of the scope).
 
-To build the reverse proxy image first create a new local folder with your certificate `.key` & `.crt` files. And create an `nginx.conf` file similar to this one (disclaimer: I'm [not an NGINX power user](https://twitter.com/thepracticaldev/status/705825638851149824)):
+Build the reverse proxy image locally:
+1. `mkdir r-proxy`
+2. Copy your certificates (`.key` & `.crt` files)
+3. Create an `nginx.conf` file similar to the following
+(disclaimer: I'm [not an NGINX power user](https://twitter.com/thepracticaldev/status/705825638851149824)):
 
 ```
 events {
-	worker_connections 768;
-	# multi_accept on;
+  worker_processes 2;
+	worker_connections 1024;
 }
 
 http {
   server {
     listen 80 default_server;
     listen [::]:80 default_server ipv6only=on;
-    server_name visualcosita.xyz;
+    server_name visualcosita.xyz;                       ###Your Domain Name###
     return 301 https://$server_name$request_uri;
   }
 
@@ -56,7 +60,7 @@ http {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://visualcosita:5000;
+      proxy_pass http://visualcosita:5000;                    ###Service Name###
       proxy_read_timeout  90;
     }
 
@@ -66,7 +70,7 @@ http {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://api:5000;
+      proxy_pass http://api:5000;                             ###Service Name###
       proxy_read_timeout  90;
     }
 
@@ -76,7 +80,7 @@ http {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Proto $scheme;
 
-      proxy_pass http://jenkins:8080/jenkins/;
+      proxy_pass http://jenkins:8080/jenkins/;                ###Service Name###
       proxy_redirect http:// https://;
 
       sendfile off;
@@ -99,9 +103,9 @@ http {
 
 ```
 
-Notice that the `proxy_pass` in each location entry will depend on the service name declared in the compose file.
+Notice that the `proxy_pass` in each location entry will depend on the service name declared in the compose file (below).
 
-The following Dockerfile should build the reverse proxy by adding the config file and SSL certificates.
+Now, the following Dockerfile builds the reverse proxy by adding the config file and SSL certificate files.
 
 __Hint:__ Avoid adding your certificates to source control.
 
@@ -119,11 +123,15 @@ Build and push the container image to the trusted registry:
 2. Build `docker build -t <REPO_URI>.amazonaws.com/r-proxy:latest .`
 3. Push `docker push <REPO_URI>.amazonaws.com/r-proxy`
 
-You will need to push to the registry all other private images needed.
+You will need to build and push to the registry all other private images needed.
 
 #### Compose file
 
-Here's a sample compose file to layout the services that match the reverse proxy configuration (or vice versa). `docker-compose up -d` should do the trick.
+Below is a sample compose file to layout the services that match the reverse proxy configuration (or vice versa). To deploy the services:
+1. SSH in the instance
+2. Fetch/Pull/Copy your `docker-compose.yml`
+2. Authenticate with ECR `aws ecr login | sh`
+3. `docker-compose up -d`
 
 ```
 version: '2'
@@ -183,12 +191,18 @@ networks:
   db-tier:
 ```
 
+To update a service:
+1. Push a new image to the registry
+2. SSH in the instance
+3. `docker-compose pull`
+4. `docker-compose up -d`.
+
+__FYI:__ In a swarm you get [rolling updates](https://docs.docker.com/engine/swarm/swarm-tutorial/rolling-update/) out of the box.
+
 #### Wrapping up
 
-Now we have 3 services publicly available via HTTPS.
+Now we have 3 services publicly available via HTTPS. Deployments are manual, though.
 
-Like I wrote before, scaling services in docker-compose [is simple](https://docs.docker.com/compose/reference/scale/) and the load balancing is built-in. You'll benefit from the fact that it will be indifferent if you're testing locally, deploying to a single EC2 instance or a Swarm.
+The Jenkins service comes into play in a following post. I'll detail some configuration to achieve CI tests using on demand instances (not the [hack-ish experiment](/post/running-dockerized-tests-in-jenkins) from a while back).
 
-Updating a service will be a matter of pushing a new image to the registry and executing `docker-compose pull` & `docker-compose up -d`. In a swarm you even get [rolling updates](https://docs.docker.com/engine/swarm/swarm-tutorial/rolling-update/) out of the box.
-
-There's some stuff from this post that can be automated, a lot to talk about that Jenkins service and room for improvement. But for now that's a wrap. Pura Vida.
+Pura Vida.

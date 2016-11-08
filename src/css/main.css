@@ -34,8 +34,22 @@ ul.navbar-container {
     font-size: 18px;
 }
 
+ol {
+  list-style-type: none;
+  counter-reset: listNumbering;
+}
+
 li {
+  counter-increment: listNumbering;
   font-size: 16px;
+  margin-bottom: 5px;
+}
+
+:not(ul) > li:before {
+  content: counter(listNumbering,decimal) '.';
+  font-size: 22px;
+  margin-right: 10px;
+  color: #efefef;
 }
 
 li.navbar-item {
@@ -122,6 +136,7 @@ code {
     overflow-x: auto;
     background-color: inherit;
     font-size: 13px;
+    word-wrap: break-word;
 }
 
 img {
