@@ -1,6 +1,6 @@
 ---
 title: Learning Rails in 2017
-description: These are some of my notes from my experience on starting to learning Ruby on Rails (in 2017).
+description: These are some notes from my experience on learning Ruby on Rails (in 2017).
 date: 2017-06-14
 layout: post.jade
 lang: en
@@ -13,7 +13,7 @@ So far this year has been surreal & hectic to say the least, and we're basically
 
 Ruby and Rails are not the shiny new toys out there, not today. Before this gig, I worked for about a year with NodeJS, which I fell in love with. To be honest I didn't expect to start off fresh with a new language & framework. Especially with the direction of recent tech tides, this didn't seem like the obvious direction to follow.
 
-Why do people/companies choose Java or .NET? Broadly because they look for a battle tested, full featured platform with __enterprise support__. Why choose NodeJS, Go, Elixir, Clojure? (you get the idea) [Because I wanna go fast](https://www.youtube.com/watch?v=riBA-FsJJmY), amongst other reasons of course. But one might argue performance is what most adopters pursue when adventuring down that path. Even though they might not need blazing speeds, and more often than not they __don't absolutely require__ that performance gain.
+Why do people/companies choose Java or .NET? Broadly because they look for a battle tested, full featured platform with __enterprise support__. Why choose NodeJS, Go, Elixir, Clojure? (you get the idea) [Because I wanna go fast](https://www.youtube.com/watch?v=riBA-FsJJmY), amongst other reasons of course. But one might argue performance is what most adopters pursue when venturing down that path. Even though they might not need blazing speeds, and more often than not they __don't absolutely require__ that performance gain.
 
 Why Ruby and Rails then? Because [why not](http://i1.kym-cdn.com/entries/icons/facebook/000/007/786/why-not-meme.jpg), but only partially. Platform maturity, developer happiness/productivity and _open sourceness_ (if such a term makes sense) make up a great cocktail. We all want to get things done, right? I'm happy and proud to have added Ruby and Rails to my Tool Belt, which already has and will hopefully continue to help me get things done.
 
@@ -31,7 +31,7 @@ For somebody who is just getting started or is planning to, here are some concep
   - Model association names are declared in plural form, for example in `User.rb` you would write `has_many :books` to associate with `Book.rb`. __Unless__ they are a `belongs_to` or `references` association, which makes sense because they refer to a __single record__. The book model would read `belongs_to :user`.
   - Forms & routes might seem complex, especially when nesting, like `form_for [@article, @article.comments.build]`. Personally they are still tricky, especially when I want to instantiate a link to a custom route path outside the form. For this I still do a bit of trial and error, or the old trick of [copy & paste from StackOverflow](https://twitter.com/thepracticaldev/status/705825638851149824).
   - My suggestion again would be to experiment and trace along the [getting started guide](http://guides.rubyonrails.org/getting_started.html). You won't confront the convention quirks of Rails until you _derail yourself_ a bit (pun 100% intended).
-- The `yield` command is analogous to "execute the block received". This took me a few minutes of re-reading multiple explanations out there. When declaring a function with 2 parameters, it can actually receive 3. That extra (optional) parameter is a "callback-like" block. For example, when you iterate an array with `array.each { |i| puts i }` the underlying implementation of the array iterates over its elements and "yields" that element to the callback function you sent in. Coming from a NodeJS background, that simplified explanation using the term '_callback_' makes sense to me. Also this [StackOverflow answer](https://stackoverflow.com/a/3066939/3462026) elaborates a bit more if you're curious.
+- The `yield` command is analogous to "execute the block received". This took me a few minutes of re-reading different explanations out there. When declaring a function with 2 parameters, it can actually receive 3. That extra (optional) parameter is a "callback-like" block. For example, when you iterate an array with `array.each { |i| puts i }` the underlying implementation of the array iterates over its elements and "yields" that element to the callback function you sent in. Coming from a NodeJS background, that simplified explanation using the term '_callback_' makes sense to me. Also this [StackOverflow answer](https://stackoverflow.com/a/3066939/3462026) elaborates a bit more if you're curious.
 
 #### Bookmarks
 
@@ -75,6 +75,6 @@ STDOUT.sync = true
 
 Every language and framework has a learning curve, no exceptions. I did felt that both Ruby and Rails are gentle for newcomers, and if you know JS/Java/Python (as plenty of CS graduates or even high school students sometimes do) you can be up and running quickly.
 
-[Turrialba](https://visualcosita.xyz/turrialba) is a website that I built during my learning phase. I rewrote parts of it maybe 3 or 4 times, and I decided to publish it recently. It's a frankenstein experiment and I'm not proud of the UX, but feel free to check it out and hit me up with feedback. Don't be too critical, I'm aware it's rough on the edges. __Side Note:__ The rails app is dockerized and running as a service loosely based on a [previous blog post I wrote](/post/publishing-services-using-docker-compose-and-nginx-with-https/) \*self pat on the back\*
+[Turrialba](https://visualcosita.xyz/turrialba) is a website that I built during my learning phase. I rewrote parts of it maybe 3 or 4 times, and I decided to publish it recently. It's a frankenstein experiment and I'm not proud of the UX, but feel free to check it out and hit me up with feedback. Don't be too critical, I'm aware it's rough on the edges. __Side Note:__ The rails app is dockerized and running as a service loosely based on a [previous blog post I wrote](https://visualcosita.xyz/post/publishing-services-using-docker-compose-and-nginx-with-https/) \*self pat on the back\*
 
 In my opinion __using a framework__ is the only way to __learn a framework__. Have fun coding out there with whatever floats your boat these days, Pura Vida!
