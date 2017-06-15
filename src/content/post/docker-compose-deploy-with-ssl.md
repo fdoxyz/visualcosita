@@ -6,31 +6,35 @@ lang: en
 tags: Docker docker-compose TLS SSL HTTPS NGINX EC2 AWS Jenkins reverse proxy
 ---
 
-This post will break down an example setup to deploy multiple HTTP services secured with TLS using [docker-compose](https://docs.docker.com/compose/overview/) with an NGINX proxy. I already had an SSL certificate for this website and figured my experiments could benefit from HTTPS, so here we are.
+This post will break down an example setup to deploy multiple HTTP services secured with TLS using [docker-compose](https://docs.docker.com/compose/overview/) and an NGINX reverse proxy. I already had an SSL certificate for this website and figured my experiments could benefit from HTTPS, so here we are.
 
-A single EC2 instance (or DigitalOcean, Azure, GCE, etc. equivalent) is more than enough to handle this, so less is better in this case. The `docker-compose.yml` will take care of the service layout. Since the compose file is integrated with [Docker Swarm](https://docker.github.io/swarm/overview/), scaling to a cluster with built-in orchestration becomes borderline trivial.
+I'll be using a `t2.micro` EC2 instance (DigitalOcean, Azure, GCE, etc. equivalent will work as well). A smaller one will work too, but I'm setting up Jenkins and he needs a bit more RAM. Since the compose file is integrated with [Docker Swarm](https://docker.github.io/swarm/overview/), scaling to a cluster with built-in orchestration should be borderline trivial.
 
 #### Before getting started
 
-The services in this example consist of this website, a Jenkins (master) server, a REST API, a (non-publicly accessible) PostgreSQL database and NGINX to serve as reverse proxy.
+I'm assuming you deployed an instance in [AWS EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html) and installed [docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/) + [docker-compose](https://github.com/docker/compose/releases). The services in this example are:
+1. This website
+2. Jenkins (master) server
+3. A random REST API
+4. PostgreSQL database (non-publicly accessible)
+5. NGINX to serve as reverse proxy
 
-I'm assuming you deployed an instance in [AWS EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html) and installed [docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/) + [docker-compose](https://github.com/docker/compose/releases).
-
-[EC2 Container Registry (ECR)](https://aws.amazon.com/ecr/) is probably the easiest trusted registry for our private images in this case. Feel free to use a different solution based on your needs/preferences.
+[EC2 Container Registry (ECR)](https://aws.amazon.com/ecr/) is probably the easiest trusted registry for our private images since we are on AWS. Feel free to replace this with a different solution based on your needs/preferences.
 
 __Hint:__ Setup an [IAM user/role](http://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) with restricted access to your account's resources.
 
 #### The Reverse Proxy
 
-You'll need an SSL private key and signed certificate. Check out [this gist](https://gist.github.com/bradmontgomery/6487319) if feeling a little lost on how to get/set it up. My certificate doesn't support subdomains (wildcard certificate = more $$), so I'll be using 'subfolders' to proxy different services.
+You'll need an SSL private key and signed certificate. Check out [this helpful gist](https://gist.github.com/bradmontgomery/6487319) to go about setting up the certificate files. My certificate doesn't support subdomains (wildcard certificate = more $$), so I'll be using 'subfolders' to proxy different services.
 
 Note that adding new services or changes in their URIs will require manual editing of this reverse proxy. Maybe not ideal, but a price I'm willing to pay for a few reasons (discussion out of the scope).
 
 Build the reverse proxy image locally:
 1. `mkdir r-proxy`
 2. Copy your certificates (`.key` & `.crt` files)
-3. Create an `nginx.conf` file similar to the following
-(disclaimer: I'm [not an NGINX power user](https://twitter.com/thepracticaldev/status/705825638851149824)):
+3. Create an `nginx.conf` file similar to the following example:
+
+(Disclaimer: I'm [not an NGINX power user](https://twitter.com/thepracticaldev/status/705825638851149824))
 
 ```
 events {
@@ -201,8 +205,8 @@ __FYI:__ In a swarm you get [rolling updates](https://docs.docker.com/engine/swa
 
 #### Wrapping up
 
-Now we have 3 services publicly available via HTTPS. Deployments are manual, though.
+Now we have 3 services publicly available via HTTPS. Deployments are manual though, this is where the Jenkins service comes into play.
 
-The Jenkins service comes into play in a following post. I'll detail some configuration to achieve CI tests using on demand instances (not the [hack-ish experiment](/post/running-dockerized-tests-in-jenkins) from a while back).
+In a following post I expect to detail some configuration to achieve CI tests using on demand instances (__not__ the [hack-ish experiment](/post/running-dockerized-tests-in-jenkins) from a while back) with this deployment.
 
 Pura Vida.

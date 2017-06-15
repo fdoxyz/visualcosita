@@ -10,7 +10,9 @@ So, I went to [DockerCon EU](http://europe-2015.dockercon.com/) a couple of week
 
 #### DEPRECATION NOTE
 
-Although happy to see the docker environment move at such fast pace, I'm saddened to say this article is out of date. [New versions of docker](https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/) ship with load balancing and service discovery. Still, lots of interesting projects can be built using some of the concepts/tools detailed here. Therefore I'll leave this article unmodified, but this is a note for newcomers to the world of docker: [This is not the introduction to docker/docker-compose you're looking for](https://www.youtube.com/watch?v=532j-186xEQ).
+Although happy to see the docker environment move at such fast pace, I'm saddened to say this article is out of date. Load balancing now comes built in the networking in [docker as of v1.12](https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/). Check out [this more recent post](/post/publishing-services-using-docker-compose-and-nginx-with-https/) that details how to expose services using a reverse-proxy (without load balancing). Same principles apply here, with less moving parts.
+
+Still, lots of interesting projects can be built using some of the concepts/tools detailed here. Therefore I'll leave this article unmodified, but this is a note for newcomers to the world of docker: [This is not the introduction to docker/docker-compose you're looking for](https://www.youtube.com/watch?v=532j-186xEQ).
 
 #### The architecture
 
