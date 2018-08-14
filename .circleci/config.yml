@@ -33,7 +33,7 @@ jobs:
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               echo 'Deploying to production';
-              ssh -o "StrictHostKeyChecking no" root@138.197.70.99 "cd /root/visualcosita; git reset --hard origin/master; ./build_and_deploy_to_swarm.sh"
+              ssh -o "StrictHostKeyChecking no" root@138.197.70.99 "cd /root/visualcosita; git pull origin master; git reset --hard origin/master; ./build_and_deploy_to_swarm.sh"
             else
               echo 'Not master branch, skipping deploy to production'
             fi
