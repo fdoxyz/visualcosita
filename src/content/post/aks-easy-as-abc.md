@@ -8,11 +8,11 @@ tags: Docker Kubernetes Helm Azure AKS containers
 
 This is a "walkthrough cheatsheet" from my initial experimenting with AKS (Azure Kubernetes Service). Everything here can be run using Azure's [Free Account trial](https://azure.microsoft.com/en-us/free/).
 
-This article is written from the point of view of someone completely new to both Azure Cloud and [Kubernetes](https://kubernetes.io/). I do recommend having at least some previous cloud provider familiarity and basic Docker knowledge though.
+This article is written from the point of view of someone completely new to both Azure Cloud and [Kubernetes](https://kubernetes.io/). I do recommend at least basic Docker knowledge and some experience with other cloud service provider(s).
 
 I haven't been an avid Kubernetes enthusiast mostly because I never had the need to learn it's ways, until now. If interested in a Docker Swarm proof of concept article feel free to [check my previous post](/post/tying-let-s-encrypt-and-docker-swarm-together/). However, I have to admit Kubernetes and most notably AKS have been lovely to work with so far.
 
-If you're interested in learning Kubernetes I recommend the [Kubernetes: Up and Running](https://www.amazon.com/Kubernetes-Running-Dive-Future-Infrastructure/dp/1491935677) book. This is just a "walkthrough guide" on how to deploy a Ruby on Rails project on AKS. Swapping the Rails specific steps for a different platform should be straightforward too.
+If you're interested in learning Kubernetes "the right way" I recommend the [Kubernetes: Up and Running](https://www.amazon.com/Kubernetes-Running-Dive-Future-Infrastructure/dp/1491935677) book. This is just a "walkthrough guide" on how to deploy a Ruby on Rails project on AKS. Swapping the Rails specific steps for a different platform should be straightforward too.
 
 ## AKS setup
 
@@ -33,6 +33,10 @@ $ az aks create -n k8s-dev -g <resource-group> -c 1 -k 1.11.2
 
 # Get credentials for `kubectl`
 $ az aks get-credentials -n k8s-dev -g <resource-group>
+
+# Run `kubectl` commands on the cluster
+$ kubectl get nodes
+$ kubectl get pods --all-namespaces
 
 # Proxy kubernetes dashboard
 $ az aks browse -n k8s-dev -g <resource-group>
@@ -181,7 +185,11 @@ $ docker run -it --rm -e "RABBITMQ_PASSWORD=pass123" --name rabbitmq -p 15672:15
 
 The RabbitMQ UI website will be available on `localhost` with port `15672`. For Ruby development using the Bunny gem to connect to the running RabbitMQ container you can use the following conneciton string:
 
-`connection = Bunny.new("amqp://user:pass123@localhost:5672?automatically_recover=false")`
+```
+# Sample connection string when working locally.
+# Production grade code should probably connect to ENV variable or encrypted secret.
+connection = Bunny.new("amqp://user:pass123@localhost:5672?automatically_recover=false")
+```
 
 To install RabbitMQ on AKS
 
@@ -196,4 +204,4 @@ It's very worth noting a [kubectl Cheat Sheet](https://kubernetes.io/docs/refere
 
 This article hopefully exposed an easy way to get services running on AKS and have them available to the internet. However, there's plenty of configuration left to be setup before calling it a production grade cluster.
 
-I'm currently familiarizing myself with the ins and outs of ingress controllers and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/), we'll see if write a future article to explain how to use them. Until then, Pura Vida.
+I'm now familiarizing myself with the ins and outs of ingress controllers and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/). Hopefully I'll write a future article about those too. Until then, Pura Vida.
