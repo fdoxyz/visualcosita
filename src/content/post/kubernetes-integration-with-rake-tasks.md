@@ -12,7 +12,7 @@ tags: Activek8s Docker Kubernetes cluster kubectl Ruby Rails Rake Tasks microser
 
 There's a long list of reasons why Kubernetes might be the right tool for your project, and at the same time you can find a long list of reasons that argue you shouldn't jump down the rabbit hole. Depending on your project both points of view may be correct, which is why I don't intend to preach for either one.
 
-__For all of us actively relying on Kubernetes__, we tried to find a way to integrate with it and __flatten the learning curve__ so our team can focus con solving the problems they already know how to solve, instead of diving deep in the "Kubernetes universe".
+__For all of us actively relying on Kubernetes__, we tried to find a way to integrate with it and __flatten the learning curve__ so our team can focus on solving the problems they already know how to solve, instead of diving deep in the "Kubernetes universe".
 
 Our team works mostly on Rails, so my solution was to wrap the somewhat complex & low level [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) commands with Rake tasks. The tool is intended to rely on a few conventions while trying to maintain a high degree of customization.
 
@@ -33,14 +33,14 @@ __NOTE:__ In the previous feature list, the term "service" refers to any Dockeri
 The "in detail" documentation can be found in the [project's README](https://github.com/fdoxyz/activek8s). But a simple deploy will work with the following command
 
 ```ruby
-# Will deploy using the 'dev' namespace and will use the container IMAGE_TAG 'prod-50'
+# Will deploy using the 'production' namespace and will use the container IMAGE_TAG 'prod-50'
 rake ak8s:deploy['production','prod-50']
 ```
 
 Let's say this last deployment introduced a regression bug. You can manually rollback using the same `deploy` command as simple as:
 
 ```ruby
-# Will deploy using the 'dev' namespace and will use the container IMAGE_TAG 'prod-50'
+# Will deploy using the 'production' namespace and will use the container IMAGE_TAG 'prod-49'
 rake ak8s:deploy['production','prod-49']
 ```
 
@@ -86,4 +86,6 @@ Again all feedback is appreciated, feel free to browse around our [on our GitHub
 
 ## Conclusion
 
-We might be falling into anti-pattern architecture, or even re-inventing the wheel (\*cough\* Helm \*cough\*). But we've found this sweet spot that works for us and by open sourcing it we can only hope to improve the project more than we can behind closed doors by ourselves. Hope it helps in any way possible, Pura Vida.
+We might be falling into anti-pattern architecture, or even re-inventing the wheel in some way (\*cough\* Helm \*cough\*) but we've found this sweet spot that works for us.
+
+By open sourcing it we can only hope to improve the project more than we can behind closed doors by ourselves. Hope it helps in any way possible, Pura Vida.
